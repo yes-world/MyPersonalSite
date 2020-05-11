@@ -1,0 +1,108 @@
+﻿doctype html
+html
+    head
+        title Вход - yes.world
+        meta(charset="UTF-8")
+        meta(name="viewport" content="width=device-width, initial-scale=1")
+        link(rel="stylesheet" href="css/bootstrap.css")
+        link(rel="stylesheet" href="css/style.css")
+        script(src="js/jquery-3.5.1.js")
+        script(src="js/bootstrap.bundle.js")
+    body
+        if message
+            div(class="modal fade" id="messageModal" tabindex="-1" role="dialog" aria-labelledby="messageModalLabel" aria-hidden="true")
+                div(class="modal-dialog" role="document")
+                    div(class="modal-content")
+                        div(class="modal-header")
+                            h5(class="modal-title" id="messageModalLabel") Сообщение
+                            button(type="button" class="close" data-dismiss="modal" aria-label="Close")
+                                span(aria-hidden="true") &times;
+                        div(class="modal-body")
+                            p #{message}
+                        div(class="modal-footer")
+                            button(type="button" class="btn btn-secondary" data-dismiss="modal") Закрыть
+        
+        div(class="modal fade" id="passwordRecovery" tabindex="-1" role="dialog" aria-labelledby="passwordRecoveryLabel" aria-hidden="true")
+                div(class="modal-dialog" role="document")
+                    div(class="modal-content")
+                        div(class="modal-header")
+                            h5(class="modal-title" id="passwordRecoveryLabel") Восстановление пароля
+                            button(type="button" class="close" data-dismiss="modal" aria-label="Close")
+                                span(aria-hidden="true") &times;
+                        div(class="modal-body")
+                            div(class="container-fluid")
+                                div(class="row")
+                                    div(class="col-12")
+                                        div Укажите подтвержденный email, на который будет оправлено письмо с ссылкой на восстановление пароля.
+                                        form(action="/passwordRecovery" method="post" class="needs-validation" novalidate)
+                                            div(class="form-group")
+                                                label(for="inRecEmail") Email:
+                                                input(name="email" type="email" class="form-control" id="inRecEmail" required)
+                                                div(class="invalid-feedback") Некорректный email
+                                            div
+                                                button(type="submit" class="btn btn-primary") Отправить
+                                                button(type="button" class="btn btn-secondary ml-2" data-dismiss="modal") Отмена
+
+        nav(class="navbar navbar-expand-md navbar-dark sticky-top" style="background-color: #910083;")
+            div(class="container")
+                a(class="navbar-brand" href="/") yes.world
+                button(class="navbar-toggler" type="button" data-toggle="collapse" data-target="#hatMenu" aria-controls="hatMenu" aria-expanded="false" aria-label="Открыть")
+                    span(class="navbar-toggler-icon")
+
+                div(class="collapse navbar-collapse justify-content-md-end" id="hatMenu")
+                    ul(class="navbar-nav")
+                        li(class="nav-item pr-md-3")
+                            a(class="nav-link" href="/") Главная
+                        li(class="nav-item pr-md-3")
+                            a(class="nav-link" href="https://github.com/yes-world" target="_blank") GitHub
+                        li(class="nav-item dropdown pr-md-3")
+                            a(class="nav-link dropdown-toggle" href="#" id="social" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false") Соц. сети
+                            div(class="dropdown-menu" aria-labelledby="social")
+                                a(class="dropdown-item" href="https://vk.com/yes.world" target="_blank") ВКонтакте
+                                a(class="dropdown-item" href="https://www.instagram.com/__yes.world__/" target="_blank") Instagram
+                                a(class="dropdown-item" href="https://vm.tiktok.com/3LprqS/" target="_blank") TikTok
+                                a(class="dropdown-item" href="https://music.yandex.ru/users/DamirSabitov2001/playlists/3" target="_blank") Плейлист на Яндекс.Музыке
+                        li(class="nav-item pr-md-3")
+                            a(class="nav-link" href="/contacts") Контакты
+                        li(class="nav-item")
+                            a(class="btn btn-outline-light" href="/login") Гость
+
+        div(class="container")
+            div(class="row justify-content-md-around align-items-md-start")
+                div(class="col-md-5 mt-md-5 contactWindow shadow conWin1 d-flex flex-column")
+                    div(class="mt-4 mt-md-3 mx-3 text-center") Вход
+                    form(action="/login" method="post" class="needs-validation my-3 mx-3" novalidate)
+                        div(class="form-group")
+                            label(for="inEmail") Email:
+                            input(name="email" type="email" class="form-control" id="inEmail" required)
+                            div(class="invalid-feedback") Некорректный email
+                        div(class="form-group")
+                            label(for="inPassword") Пароль:
+                            input(name="password" type="password" class="form-control" id="inPassword" required)
+                            div(class="invalid-feedback") Введите пароль
+                        button(type="submit" class="btn btn-primary") Войти
+                    a(data-toggle="modal" href="#passwordRecovery" class="mb-4 mb-md-3 mx-3" id="forgetPass") Забыли пароль?
+                div(class="col-md-5 mt-md-5 contactWindow shadow conWin2 d-flex flex-column")
+                    div(class="mt-4 mt-md-3 mx-3 text-center") Регистрация
+                    form(action="/registration" method="post" class="needs-validation mt-3 mb-4 mb-md-3 mx-3" novalidate)
+                        div(class="form-group")
+                            label(for="inName") Имя:
+                            input(name="name" type="text" class="form-control" id="inName" required)
+                            div(class="invalid-feedback") Заполните поле
+                        div(class="form-group")
+                            label(for="inSurname") Фамилия:
+                            input(name="surname" type="text" class="form-control" id="inSurname" required)
+                            div(class="invalid-feedback") Заполните поле
+                        div(class="form-group")
+                            label(for="inNewEmail") Email:
+                            input(name="email" type="email" class="form-control" id="inNewEmail" required)
+                            div(class="invalid-feedback") Некорректный email
+                        div(class="form-group")
+                            label(for="inNewPassword") Придумайте пароль:
+                            input(name="password" type="password" class="form-control" id="inNewPassword" required)
+                            div(class="invalid-feedback") Заполните поле
+                        button(type="submit" class="btn btn-primary") Зарегистрироваться
+        
+        script(src="js/formValidation.js")
+        if message
+            script $('#messageModal').modal('show')

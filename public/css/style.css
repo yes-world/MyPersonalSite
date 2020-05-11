@@ -1,0 +1,25 @@
+.messageHello {
+    font-size: xx-large;
+}
+
+.conWin1{
+    font-size: large;
+}
+
+.conWin2 {
+    background-color: #910083;
+    color: white;
+    font-size: large;
+}
+
+@media (min-width: 768px) {
+    .contactWindow {
+        border-radius: 10px;
+        background-color: #910083;
+        color: white;
+    }
+
+    #forgetPass {
+        color: white !important;
+    }
+}

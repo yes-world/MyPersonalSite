@@ -1,0 +1,8 @@
+.vs/
+bin/
+node_modules/
+obj/
+sessions/
+*.njsproj
+*.user
+*.sln
