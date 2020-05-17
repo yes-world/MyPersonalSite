@@ -130,9 +130,9 @@ html
                         button(type="button" class="btn btn-light" data-toggle="modal" data-target="#removeUser") Удалить профиль
 
         div(class="container mt-4")
-            div(class="row conWin1") Отправленные сообщения:
+            div(class="conWin1 mb-3") Отправленные сообщения:
             if messages.length == 0
-                div(class="row conWin1") Нет писем.
+                div(class="conWin1") Нет писем.
             else
                 table(class="table table-hover")
                     thead
