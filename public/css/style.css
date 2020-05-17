@@ -1,5 +1,16 @@
-.messageHello {
-    font-size: xx-large;
+.mh1 {
+    font-size: 3.5rem;
+    font-weight: 300;
+}
+
+.mh2 {
+    font-size: 1.75rem;
+    font-weight: 300;
+}
+
+.mh3 {
+    font-size: 1.25rem;
+    font-weight: 300;
 }
 
 .conWin1{
@@ -10,6 +21,12 @@
     background-color: #910083;
     color: white;
     font-size: large;
+}
+
+.ex1 {
+    height: 250px;
+    background-color: #910083;
+    color: white;
 }
 
 @media (min-width: 768px) {
