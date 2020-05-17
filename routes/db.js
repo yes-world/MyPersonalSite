@@ -132,7 +132,13 @@ function verification(req, res) {
                         req.session.email = user.email;
                         req.session.admin = user.admin;
                         req.session.message = "Email подтвержден."
-                        req.session.save(() => res.redirect('/profile'));
+                        let now = new Date();
+                        let statData = { date: now.toString(), user: user.name + ' ' + user.surname, email: user.email, operation: "registration" };
+                        const statCollection = db.collection('statistics');
+                        statCollection.insertOne(statData, function (err, result) {
+                            if (err) return console.log(err);
+                            req.session.save(() => res.redirect('/profile'));
+                        });
                     });
                 });
             }
@@ -145,7 +151,13 @@ function removeUser(req, res) {
     const collection = db.collection('users');
     collection.deleteOne({ email: req.session.email }, function (err, result) {
         if (err) return console.log(err);
-        res.redirect('/logout');
+        let now = new Date();
+        let statData = { date: now.toString(), user: req.session.username + ' ' + req.session.surname, email: req.session.email, operation: "removeUser" };
+        const statCollection = db.collection('statistics');
+        statCollection.insertOne(statData, function (err, result) {
+            if (err) return console.log(err);
+            res.redirect('/logout');
+        });
     });
 }
 
