@@ -1,13 +1,13 @@
 ﻿doctype html
 html
     head
-        title Error - yes.world
+        title Admin - yes.world
         meta(charset="UTF-8")
         meta(name="viewport" content="width=device-width, initial-scale=1")
-        link(rel="stylesheet" href="/css/bootstrap.css")
-        link(rel="stylesheet" href="/css/style.css")
-        script(src="/js/jquery-3.5.1.js")
-        script(src="/js/bootstrap.bundle.js")
+        link(rel="stylesheet" href="css/bootstrap.css")
+        link(rel="stylesheet" href="css/style.css")
+        script(src="js/jquery-3.5.1.js")
+        script(src="js/bootstrap.bundle.js")
     body
         nav(class="navbar navbar-expand-md navbar-dark sticky-top" style="background-color: #910083;")
             div(class="container")
@@ -30,17 +30,21 @@ html
                                 a(class="dropdown-item" href="https://music.yandex.ru/users/DamirSabitov2001/playlists/3" target="_blank") Плейлист на Яндекс.Музыке
                         li(class="nav-item pr-md-3")
                             a(class="nav-link" href="/contacts") Контакты
-                        if login
-                            li(class="nav-item dropdown")
-                                a(class="btn btn-outline-light dropdown-toggle" href="#" id="profileMenu" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false") #{username}
-                                div(class="dropdown-menu" aria-labelledby="profileMenu")
-                                    a(class="dropdown-item" href="/profile") Профиль
-                                    div(class="dropdown-divider")
-                                    a(class="dropdown-item" href="/logout") Выйти
-                        else
-                            li(class="nav-item")
-                                a(class="btn btn-outline-light" href="/login") Гость
-        
+                        li(class="nav-item dropdown")
+                            a(class="btn btn-outline-light dropdown-toggle" href="#" id="profileMenu" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false") #{username}
+                            div(class="dropdown-menu" aria-labelledby="profileMenu")
+                                a(class="dropdown-item" href="/profile") Профиль
+                                div(class="dropdown-divider")
+                                a(class="dropdown-item" href="/logout") Выйти
+
         div(class="container")
-            h1(class="pt-5")= message
-            h2(class="pt-5")= error.status
+            div(class="row justify-content-center")
+                div(class="col-md-5 mt-md-5 contactWindow shadow conWin1")
+                    div(class="mt-4 mt-md-3 mb-3 mx-3")
+                        a(class="btn btn-light" href="/admin/users") Зарегистрированные пользователи
+                    div(class="mb-3 mx-3")
+                        a(class="btn btn-light" href="/admin/regUsers") Заявки на регистрацию
+                    div(class="mb-3 mx-3")
+                        a(class="btn btn-light" href="/admin/messages") Обратная связь
+                    div(class="mb-4 mb-md-3 mx-3")
+                        a(class="btn btn-light" href="/admin/statistics") Статистика

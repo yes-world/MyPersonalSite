@@ -274,6 +274,28 @@ function logout(req, res) {
     });
 }
 
+function outputDB(req, res, namedb) {
+    const db = dbclient.db('usersdb');
+    const collection = db.collection(namedb);
+    collection.find().toArray(function (err, results) {
+        if (err) return console.log(err);
+        let data;
+        if ((namedb === "users") || (namedb === "regUsers")) data = { username: req.session.username, results: results, users: true };
+        if (namedb === "messages") data = { username: req.session.username, results: results, messages: true };
+        if (namedb === "statistics") data = { username: req.session.username, results: results, statistics: true };
+        res.render('admin-table', data);
+    });
+}
+
+function profileDB(req, res, message) {
+    const db = dbclient.db('usersdb');
+    const collection = db.collection('messages');
+    collection.find({ email: req.session.email }).toArray(function (err, results) {
+        if (err) return console.log(err);
+        res.render('profile', { username: req.session.username, surname: req.session.surname, email: req.session.email, message: message, messages: results });
+    });
+}
+
 exports.authentication = authentication;
 exports.registration = registration;
 exports.verification = verification;
@@ -285,3 +307,5 @@ exports.changeName = changeName;
 exports.changePassword = changePassword;
 exports.feedback = feedback;
 exports.logout = logout;
+exports.outputDB = outputDB;
+exports.profileDB = profileDB;

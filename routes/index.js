@@ -61,15 +61,13 @@ router.get('/profile', function (req, res) {
     else {
         let message = req.session.message;
         req.session.message = "";
-        req.session.save(() => res.render('profile', { username: req.session.username, surname: req.session.surname, email: req.session.email, message: message }));
+        req.session.save(() => db.profileDB(req, res, message));
     }
 });
 
 router.get('/passwordRecovery', function (req, res) {
     if (req.session.login) res.redirect('/profile');
-    else {
-        db.passwordRecoveryStep2(req, res);
-    }
+    else db.passwordRecoveryStep2(req, res);
 });
 
 router.post('/passwordRecovery', function (req, res) {
@@ -86,6 +84,31 @@ router.post('/changeName', function (req, res) {
 
 router.post('/changePassword', function (req, res) {
     db.changePassword(req, res);
+});
+
+router.get('/admin', function (req, res) {
+    if (!req.session.admin) res.redirect('/');
+    else res.render('admin', { username: req.session.username });
+});
+
+router.get('/admin/users', function (req, res) {
+    if (!req.session.admin) res.redirect('/');
+    else db.outputDB(req, res, 'users');
+});
+
+router.get('/admin/regUsers', function (req, res) {
+    if (!req.session.admin) res.redirect('/');
+    else db.outputDB(req, res, 'regUsers');
+});
+
+router.get('/admin/messages', function (req, res) {
+    if (!req.session.admin) res.redirect('/');
+    else db.outputDB(req, res, 'messages');
+});
+
+router.get('/admin/statistics', function (req, res) {
+    if (!req.session.admin) res.redirect('/');
+    else db.outputDB(req, res, 'statistics');
 });
 
 module.exports = router;
