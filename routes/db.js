@@ -27,6 +27,27 @@ function sha256(data) {
     return crypto.createHash("sha256").update(data).digest("hex");
 }
 
+function nowTime() {
+    function addZero(number) {
+        let stNum = "";
+        if (number < 10) {
+            stNum += 0;
+            stNum += number;
+        } else {
+            stNum += number;
+        }
+        return stNum;
+    }
+    let date = new Date();
+    let x1 = addZero(date.getUTCDate());
+    let x2 = addZero(date.getUTCMonth() + 1);
+    let x3 = addZero(date.getUTCFullYear());
+    let x4 = addZero(date.getUTCHours());
+    let x5 = addZero(date.getUTCMinutes());
+    let res = x1 + '.' + x2 + '.' + x3 + ' ' + x4 + ':' + x5 + ' UTC+0';
+    return res;
+}
+
 const mongoClient = new MongoClient("mongodb://localhost:27017/", { useUnifiedTopology: true });
 let dbclient;
 mongoClient.connect(function (err, client) {
@@ -54,8 +75,7 @@ function authentication(req, res) {
                 req.session.surname = results[0].surname;
                 req.session.email = results[0].email;
                 req.session.admin = results[0].admin;
-                let now = new Date();
-                let statData = { date: now.toString(), user: results[0].name + ' ' + results[0].surname, email: results[0].email, operation: "input" };
+                let statData = { date: nowTime(), user: results[0].name + ' ' + results[0].surname, email: results[0].email, operation: "input" };
                 const statCollection = db.collection('statistics');
                 statCollection.insertOne(statData, function (err, result) {
                     if (err) return console.log(err);
@@ -135,8 +155,7 @@ function verification(req, res) {
                         req.session.email = user.email;
                         req.session.admin = user.admin;
                         req.session.message = "Email подтвержден."
-                        let now = new Date();
-                        let statData = { date: now.toString(), user: user.name + ' ' + user.surname, email: user.email, operation: "registration" };
+                        let statData = { date: nowTime(), user: user.name + ' ' + user.surname, email: user.email, operation: "registration" };
                         const statCollection = db.collection('statistics');
                         statCollection.insertOne(statData, function (err, result) {
                             if (err) return console.log(err);
@@ -154,8 +173,7 @@ function removeUser(req, res) {
     const collection = db.collection('users');
     collection.deleteOne({ email: req.session.email }, function (err, result) {
         if (err) return console.log(err);
-        let now = new Date();
-        let statData = { date: now.toString(), user: req.session.username + ' ' + req.session.surname, email: req.session.email, operation: "removeUser" };
+        let statData = { date: nowTime(), user: req.session.username + ' ' + req.session.surname, email: req.session.email, operation: "removeUser" };
         const statCollection = db.collection('statistics');
         statCollection.insertOne(statData, function (err, result) {
             if (err) return console.log(err);
@@ -257,8 +275,7 @@ function changePassword(req, res) {
 }
 
 function feedback(req, res) {
-    let now = new Date();
-    let message = { date: now.toString(), author: req.session.username + ' ' + req.session.surname, email: req.session.email, subject: req.body.subject, message: req.body.message };
+    let message = { date: nowTime(), author: req.session.username + ' ' + req.session.surname, email: req.session.email, subject: req.body.subject, message: req.body.message };
     const db = dbclient.db('usersdb');
     const collection = db.collection('messages');
     collection.insertOne(message, function (err, result) {
@@ -270,8 +287,7 @@ function feedback(req, res) {
 }
 
 function logout(req, res) {
-    let now = new Date();
-    let statData = { date: now.toString(), user: req.session.username + ' ' + req.session.surname, email: req.session.email, operation: "output" };
+    let statData = { date: nowTime(), user: req.session.username + ' ' + req.session.surname, email: req.session.email, operation: "output" };
     const db = dbclient.db('usersdb');
     const statCollection = db.collection('statistics');
     statCollection.insertOne(statData, function (err, result) {
