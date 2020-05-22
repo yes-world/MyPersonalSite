@@ -29,7 +29,6 @@ function sha256(data) {
 
 const mongoClient = new MongoClient("mongodb://localhost:27017/", { useUnifiedTopology: true });
 let dbclient;
-
 mongoClient.connect(function (err, client) {
     if (err) console.log(err);
     dbclient = client;
@@ -71,9 +70,10 @@ function registration(req, res) {
     let name = req.body.name.trim();
     let surname = req.body.surname.trim();
     let email = req.body.email.trim().toLowerCase();
-    let hashpass = sha256(req.body.password);
     let hashemail = sha256(email);
-    let user = { name: name, surname: surname, email: email, hashpass: hashpass, admin: false, hashemail: hashemail };
+    let hashpass = sha256(req.body.password);
+    let key = sha256(((new Date()).getTime()).toString());
+    let user = { name: name, surname: surname, email: email, hashemail: hashemail, hashpass: hashpass, key: key, admin: false  };
     const db = dbclient.db('usersdb');
     const oldcollection = db.collection('users');
     oldcollection.find({ email: email }).toArray(function (err, results) {
@@ -90,7 +90,7 @@ function registration(req, res) {
                         if (err) return console.log(err);
                         collection.insertOne(user, function (err, result) {
                             if (err) return console.log(err);
-                            sendEmail(email, "Подтверждение email", 'yes.world\n\nДля подтверждения email адреса перейдите по ссылке:\n\nhttp://yes-world.ru/verification?property1=' + hashemail + '&property2=' + hashpass + '\n\nЕсли вы не регистрировались на этом сайте, просто проигнорируйте это письмо.\n\nЭто письмо было созданно автоматически. Пожалуйста, не отвечайте на него.', '<html style="font-family: sans-serif;"><body style="margin: 0; font-size: x-large;"><div style="width: 100%; height: 3rem; background-color: #910083; color: white; padding-left: 3rem; padding-top: 1.25rem;"><div>yes.world</div></div><div style="margin-top: 3rem; margin-left: 3rem; margin-right: 3rem; margin-bottom: 3rem;"><p>Для подтверждения email адреса перейдите по ссылке:</p><p><a href="http://yes-world.ru/verification?property1=' + hashemail + '&property2=' + hashpass + '" target="_blank">Подтвердить email</a></p><p style="font-size: small;">Если вы не регистрировались на этом сайте, просто проигнорируйте это письмо.</p><p style="font-size: small;">Это письмо было созданно автоматически. Пожалуйста, не отвечайте на него.</p></div></body></html>').catch(console.error);
+                            sendEmail(email, "Подтверждение email", 'yes.world\n\nДля подтверждения email адреса перейдите по ссылке:\n\nhttp://yes-world.ru/verification?property1=' + hashemail + '&property2=' + key + '\n\nЕсли вы не регистрировались на этом сайте, просто проигнорируйте это письмо.\n\nЭто письмо было созданно автоматически. Пожалуйста, не отвечайте на него.', '<html style="font-family: sans-serif;"><body style="margin: 0; font-size: x-large;"><div style="width: 100%; height: 3rem; background-color: #910083; color: white; padding-left: 3rem; padding-top: 1.25rem;"><div>yes.world</div></div><div style="margin-top: 3rem; margin-left: 3rem; margin-right: 3rem; margin-bottom: 3rem;"><p>Для подтверждения email адреса перейдите по ссылке:</p><p><a href="http://yes-world.ru/verification?property1=' + hashemail + '&property2=' + key + '" target="_blank">Подтвердить email</a></p><p style="font-size: small;">Если вы не регистрировались на этом сайте, просто проигнорируйте это письмо.</p><p style="font-size: small;">Это письмо было созданно автоматически. Пожалуйста, не отвечайте на него.</p></div></body></html>').catch(console.error);
                             req.session.message = "На " + email + " было отправлено письмо с подтверждением. Перейдите по ссылке в письме, чтобы войти в профиль.";
                             req.session.save(() => res.redirect('/login'));
                         });
@@ -98,7 +98,7 @@ function registration(req, res) {
                 } else {
                     collection.insertOne(user, function (err, result) {
                         if (err) return console.log(err);
-                        sendEmail(email, "Подтверждение email", 'yes.world\n\nДля подтверждения email адреса перейдите по ссылке:\n\nhttp://yes-world.ru/verification?property1=' + hashemail + '&property2=' + hashpass + '\n\nЕсли вы не регистрировались на этом сайте, просто проигнорируйте это письмо.\n\nЭто письмо было созданно автоматически. Пожалуйста, не отвечайте на него.', '<html style="font-family: sans-serif;"><body style="margin: 0; font-size: x-large;"><div style="width: 100%; height: 3rem; background-color: #910083; color: white; padding-left: 3rem; padding-top: 1.25rem;"><div>yes.world</div></div><div style="margin-top: 3rem; margin-left: 3rem; margin-right: 3rem; margin-bottom: 3rem;"><p>Для подтверждения email адреса перейдите по ссылке:</p><p><a href="http://yes-world.ru/verification?property1=' + hashemail + '&property2=' + hashpass + '" target="_blank">Подтвердить email</a></p><p style="font-size: small;">Если вы не регистрировались на этом сайте, просто проигнорируйте это письмо.</p><p style="font-size: small;">Это письмо было созданно автоматически. Пожалуйста, не отвечайте на него.</p></div></body></html>').catch(console.error);
+                        sendEmail(email, "Подтверждение email", 'yes.world\n\nДля подтверждения email адреса перейдите по ссылке:\n\nhttp://yes-world.ru/verification?property1=' + hashemail + '&property2=' + key + '\n\nЕсли вы не регистрировались на этом сайте, просто проигнорируйте это письмо.\n\nЭто письмо было созданно автоматически. Пожалуйста, не отвечайте на него.', '<html style="font-family: sans-serif;"><body style="margin: 0; font-size: x-large;"><div style="width: 100%; height: 3rem; background-color: #910083; color: white; padding-left: 3rem; padding-top: 1.25rem;"><div>yes.world</div></div><div style="margin-top: 3rem; margin-left: 3rem; margin-right: 3rem; margin-bottom: 3rem;"><p>Для подтверждения email адреса перейдите по ссылке:</p><p><a href="http://yes-world.ru/verification?property1=' + hashemail + '&property2=' + key + '" target="_blank">Подтвердить email</a></p><p style="font-size: small;">Если вы не регистрировались на этом сайте, просто проигнорируйте это письмо.</p><p style="font-size: small;">Это письмо было созданно автоматически. Пожалуйста, не отвечайте на него.</p></div></body></html>').catch(console.error);
                         req.session.message = "На " + email + " было отправлено письмо с подтверждением. Перейдите по ссылке в письме, чтобы войти в профиль.";
                         req.session.save(() => res.redirect('/login'));
                     });
@@ -110,7 +110,7 @@ function registration(req, res) {
 
 function verification(req, res) {
     let hashemail = req.query.property1;
-    let hashpass = req.query.property2;
+    let key = req.query.property2;
     const db = dbclient.db('usersdb');
     const collection = db.collection('regUsers');
     collection.find({ hashemail: hashemail }).toArray(function (err, results) {
@@ -119,11 +119,11 @@ function verification(req, res) {
             req.session.message = "Ссылка повреждена.";
             req.session.save(() => res.redirect('/login'));
         } else {
-            if (results[0].hashpass != hashpass) {
+            if (results[0].key != key) {
                 req.session.message = "Ссылка повреждена.";
                 req.session.save(() => res.redirect('/login'));
             } else {
-                let user = { name: results[0].name, surname: results[0].surname, email: results[0].email, hashpass: results[0].hashpass, admin: results[0].admin };
+                let user = { name: results[0].name, surname: results[0].surname, email: results[0].email, hashemail: results[0].hashemail, hashpass: results[0].hashpass, admin: results[0].admin };
                 collection.deleteOne({ hashemail: hashemail }, function (err, result) {
                     if (err) return console.log(err);
                     const newcollection = db.collection('users');
@@ -173,27 +173,31 @@ function passwordRecovery(req, res) {
         if (!results.length) {
             req.session.message = "Пользователя с таким email не существует.";
             req.session.save(() => res.redirect('/login'));
-        }
-        else {
-            sendEmail(email, "Восстановление пароля", 'yes.world\n\nДля восстановления пароля перейдите по ссылке:\n\nhttp://yes-world.ru/passwordRecovery?property1=' + results[0].hashpass + '&property2=' + sha256(email) + '\n\nЕсли вы не регистрировались на этом сайте, просто проигнорируйте это письмо.\n\nЭто письмо было созданно автоматически. Пожалуйста, не отвечайте на него.', '<html style="font-family: sans-serif;"><body style="margin: 0; font-size: x-large;"><div style="width: 100%; height: 3rem; background-color: #910083; color: white; padding-left: 3rem; padding-top: 1.25rem;"><div>yes.world</div></div><div style="margin-top: 3rem; margin-left: 3rem; margin-right: 3rem; margin-bottom: 3rem;"><p>Для восстановления пароля перейдите по ссылке:</p><p><a href="http://yes-world.ru/passwordRecovery?property1=' + results[0].hashpass + '&property2=' + sha256(email) + '" target="_blank">Восстановить пароль</a></p><p style="font-size: small;">Если вы не регистрировались на этом сайте, просто проигнорируйте это письмо.</p><p style="font-size: small;">Это письмо было созданно автоматически. Пожалуйста, не отвечайте на него.</p></div></body></html>').catch(console.error);
-            req.session.message = "На " + email + " было отправлено письмо с ссылкой на восстановление пароля.";
-            req.session.save(() => res.redirect('/login'));
+        } else {
+            let hashemail = results[0].hashemail;
+            let key = sha256(((new Date()).getTime()).toString());
+            collection.updateOne({ email: email }, { $set: { key: key } }, function (err, result) {
+                if (err) return console.log(err);
+                sendEmail(email, "Восстановление пароля", 'yes.world\n\nДля восстановления пароля перейдите по ссылке:\n\nhttp://yes-world.ru/passwordRecovery?property1=' + hashemail + '&property2=' + key + '\n\nЕсли вы не регистрировались на этом сайте, просто проигнорируйте это письмо.\n\nЭто письмо было созданно автоматически. Пожалуйста, не отвечайте на него.', '<html style="font-family: sans-serif;"><body style="margin: 0; font-size: x-large;"><div style="width: 100%; height: 3rem; background-color: #910083; color: white; padding-left: 3rem; padding-top: 1.25rem;"><div>yes.world</div></div><div style="margin-top: 3rem; margin-left: 3rem; margin-right: 3rem; margin-bottom: 3rem;"><p>Для восстановления пароля перейдите по ссылке:</p><p><a href="http://yes-world.ru/passwordRecovery?property1=' + hashemail + '&property2=' + key + '" target="_blank">Восстановить пароль</a></p><p style="font-size: small;">Если вы не регистрировались на этом сайте, просто проигнорируйте это письмо.</p><p style="font-size: small;">Это письмо было созданно автоматически. Пожалуйста, не отвечайте на него.</p></div></body></html>').catch(console.error);
+                req.session.message = "На " + email + " было отправлено письмо с ссылкой на восстановление пароля.";
+                req.session.save(() => res.redirect('/login'));
+            });
         }
     });
 }
 
 function passwordRecoveryStep2(req, res) {
-    let hashpass = req.query.property1;
-    let hashemail = req.query.property2;
+    let hashemail = req.query.property1;
+    let key = req.query.property2;
     const db = dbclient.db('usersdb');
     const collection = db.collection('users');
-    collection.find({ hashpass: hashpass }).toArray(function (err, results) {
+    collection.find({ hashemail: hashemail }).toArray(function (err, results) {
         if (err) return console.log(err);
         if (!results.length) {
             req.session.message = "Ссылка повреждена.";
             req.session.save(() => res.redirect('/login'));
         } else {
-            if (sha256(results[0].email) != hashemail) {
+            if (results[0].key != key) {
                 req.session.message = "Ссылка повреждена.";
                 req.session.save(() => res.redirect('/login'));
             } else {
