@@ -39,12 +39,13 @@ function nowTime() {
         return stNum;
     }
     let date = new Date();
+    date.setHours(date.getHours() + 3);
     let x1 = addZero(date.getUTCDate());
     let x2 = addZero(date.getUTCMonth() + 1);
     let x3 = addZero(date.getUTCFullYear());
     let x4 = addZero(date.getUTCHours());
     let x5 = addZero(date.getUTCMinutes());
-    let res = x1 + '.' + x2 + '.' + x3 + ' ' + x4 + ':' + x5 + ' UTC+0';
+    let res = x1 + '.' + x2 + '.' + x3 + ' ' + x4 + ':' + x5 + ' МСК';
     return res;
 }
 
