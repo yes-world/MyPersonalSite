@@ -111,4 +111,8 @@ router.get('/admin/statistics', function (req, res) {
     else db.outputDB(req, res, 'statistics');
 });
 
+router.get('/marvel', function (req, res) {
+    res.send('Страница временно недоступна');
+});
+
 module.exports = router;
