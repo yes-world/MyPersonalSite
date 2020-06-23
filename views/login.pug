@@ -34,7 +34,7 @@ html
                             div(class="container-fluid")
                                 div(class="row")
                                     div(class="col-12")
-                                        div Укажите подтвержденный email, на который будет оправлено письмо с ссылкой на восстановление пароля.
+                                        div(class="mb-2") Укажите подтвержденный email, на который будет оправлено письмо с ссылкой на восстановление пароля.
                                         form(action="/passwordRecovery" id="passRecForm" method="post")
                                             div(class="form-group")
                                                 label(for="inRecEmail") Email:
@@ -101,5 +101,6 @@ html
                         button(type="submit" class="btn btn-primary") Зарегистрироваться
         
         script(src="js/formValidation.js")
+        script $('#forgetPass').on('click', function () { $('#inRecEmail').val($('#inEmail').val()); });
         if message
             script $('#messageModal').modal('show')
