@@ -8,6 +8,7 @@ html
         link(rel="stylesheet" href="css/style.css")
         script(src="js/jquery-3.5.1.js")
         script(src="js/bootstrap.bundle.js")
+        script(src="js/jquery.validate.min.js")
     body
         nav(class="navbar navbar-expand-md navbar-dark sticky-top" style="background-color: #910083;")
             div(class="container")
@@ -37,14 +38,16 @@ html
             div(class="row justify-content-center")
                 div(class="col-md-5 d-flex flex-column")
                     div Восстановление пароля к аккаунту:
-                    form(action="/passwordRecoveryStep3" method="post" class="needs-validation" novalidate)
+                    form(action="/passwordRecoveryStep3" id="passRecForm2" method="post")
                         div(class="form-group")
                             label(for="inEmail") Email:
                             input(name="email" type="text" class="form-control" id="inEmail" value=email readonly)
                         div(class="form-group")
                             label(for="inPassword") Придумайте новый пароль:
-                            input(name="password" type="password" class="form-control" id="inPassword" required)
-                            div(class="invalid-feedback") Введите пароль
+                            input(name="password" type="password" class="form-control" id="inPassword")
+                        div(class="form-group")
+                            label(for="inConfirmPassword") Повторите пароль:
+                            input(name="confirmPassword" type="password" class="form-control" id="inConfirmPassword")
                         button(type="submit" class="btn btn-primary") Применить
         
         script(src="js/formValidation.js")

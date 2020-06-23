@@ -8,6 +8,7 @@ html
         link(rel="stylesheet" href="css/style.css")
         script(src="js/jquery-3.5.1.js")
         script(src="js/bootstrap.bundle.js")
+        script(src="js/jquery.validate.min.js")
     body
         if message
             div(class="modal fade" id="messageModal" tabindex="-1" role="dialog" aria-labelledby="messageModalLabel" aria-hidden="true")
@@ -33,15 +34,13 @@ html
                             div(class="container-fluid")
                                 div(class="row")
                                     div(class="col-12")
-                                        form(action="/changeName" method="post" class="needs-validation" novalidate)
+                                        form(action="/changeName" id="changeNameForm" method="post")
                                             div(class="form-group")
                                                 label(for="inName") Имя:
-                                                input(name="name" type="text" class="form-control" id="inName" value=username required)
-                                                div(class="invalid-feedback") Заполните поле
+                                                input(name="name" type="text" class="form-control" id="inName" value=username)
                                             div(class="form-group")
                                                 label(for="inSurname") Фамилия:
-                                                input(name="surname" type="text" class="form-control" id="inSurname" value=surname required)
-                                                div(class="invalid-feedback") Заполните поле
+                                                input(name="surname" type="text" class="form-control" id="inSurname" value=surname)
                                             div
                                                 button(type="submit" class="btn btn-primary") Изменить
                                                 button(type="button" class="btn btn-secondary ml-2" data-dismiss="modal") Отмена
@@ -57,15 +56,16 @@ html
                             div(class="container-fluid")
                                 div(class="row")
                                     div(class="col-12")
-                                        form(action="/changePassword" method="post" class="needs-validation" novalidate)
+                                        form(action="/changePassword" id="changePasswordForm" method="post")
                                             div(class="form-group")
                                                 label(for="inPassword") Старый пароль:
-                                                input(name="oldpass" type="password" class="form-control" id="inPassword" required)
-                                                div(class="invalid-feedback") Заполните поле
+                                                input(name="oldpass" type="password" class="form-control" id="inPassword")
                                             div(class="form-group")
                                                 label(for="inNewPassword") Новый пароль:
-                                                input(name="newpass" type="password" class="form-control" id="inNewPassword" required)
-                                                div(class="invalid-feedback") Заполните поле
+                                                input(name="newpass" type="password" class="form-control" id="inNewPassword")
+                                            div(class="form-group")
+                                                label(for="inConfirmPassword") Повторите пароль:
+                                                input(name="confirmPassword" type="password" class="form-control" id="inConfirmPassword")
                                             div
                                                 button(type="submit" class="btn btn-primary") Изменить
                                                 button(type="button" class="btn btn-secondary ml-2" data-dismiss="modal") Отмена

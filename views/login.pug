@@ -8,6 +8,7 @@ html
         link(rel="stylesheet" href="css/style.css")
         script(src="js/jquery-3.5.1.js")
         script(src="js/bootstrap.bundle.js")
+        script(src="js/jquery.validate.min.js")
     body
         if message
             div(class="modal fade" id="messageModal" tabindex="-1" role="dialog" aria-labelledby="messageModalLabel" aria-hidden="true")
@@ -34,11 +35,10 @@ html
                                 div(class="row")
                                     div(class="col-12")
                                         div Укажите подтвержденный email, на который будет оправлено письмо с ссылкой на восстановление пароля.
-                                        form(action="/passwordRecovery" method="post" class="needs-validation" novalidate)
+                                        form(action="/passwordRecovery" id="passRecForm" method="post")
                                             div(class="form-group")
                                                 label(for="inRecEmail") Email:
-                                                input(name="email" type="email" class="form-control" id="inRecEmail" required)
-                                                div(class="invalid-feedback") Некорректный email
+                                                input(name="email" type="email" class="form-control" id="inRecEmail")
                                             div
                                                 button(type="submit" class="btn btn-primary") Отправить
                                                 button(type="button" class="btn btn-secondary ml-2" data-dismiss="modal") Отмена
@@ -71,36 +71,33 @@ html
             div(class="row justify-content-md-around align-items-md-start")
                 div(class="col-md-5 mt-md-5 contactWindow shadow conWin1 d-flex flex-column")
                     div(class="mt-4 mt-md-3 mx-3 text-center") Вход
-                    form(action="/login" method="post" class="needs-validation my-3 mx-3" novalidate)
+                    form(action="/login" id="auntForm" method="post" class="my-3 mx-3")
                         div(class="form-group")
                             label(for="inEmail") Email:
-                            input(name="email" type="email" class="form-control" id="inEmail" required)
-                            div(class="invalid-feedback") Некорректный email
+                            input(name="email" type="email" class="form-control" id="inEmail")
                         div(class="form-group")
                             label(for="inPassword") Пароль:
-                            input(name="password" type="password" class="form-control" id="inPassword" required)
-                            div(class="invalid-feedback") Введите пароль
+                            input(name="password" type="password" class="form-control" id="inPassword")
                         button(type="submit" class="btn btn-primary") Войти
                     a(data-toggle="modal" href="#passwordRecovery" class="mb-4 mb-md-3 mx-3" id="forgetPass") Забыли пароль?
                 div(class="col-md-5 mt-md-5 contactWindow shadow conWin2 d-flex flex-column")
                     div(class="mt-4 mt-md-3 mx-3 text-center") Регистрация
-                    form(action="/registration" method="post" class="needs-validation mt-3 mb-4 mb-md-3 mx-3" novalidate)
+                    form(action="/registration" id="regForm" method="post" class="mt-3 mb-4 mb-md-3 mx-3")
                         div(class="form-group")
                             label(for="inName") Имя:
-                            input(name="name" type="text" class="form-control" id="inName" required)
-                            div(class="invalid-feedback") Заполните поле
+                            input(name="name" type="text" class="form-control" id="inName")
                         div(class="form-group")
                             label(for="inSurname") Фамилия:
-                            input(name="surname" type="text" class="form-control" id="inSurname" required)
-                            div(class="invalid-feedback") Заполните поле
+                            input(name="surname" type="text" class="form-control" id="inSurname")
                         div(class="form-group")
                             label(for="inNewEmail") Email:
-                            input(name="email" type="email" class="form-control" id="inNewEmail" required)
-                            div(class="invalid-feedback") Некорректный email
+                            input(name="email" type="email" class="form-control" id="inNewEmail")
                         div(class="form-group")
                             label(for="inNewPassword") Придумайте пароль:
-                            input(name="password" type="password" class="form-control" id="inNewPassword" required)
-                            div(class="invalid-feedback") Заполните поле
+                            input(name="password" type="password" class="form-control" id="inNewPassword")
+                        div(class="form-group")
+                            label(for="inConfirmPassword") Повторите пароль:
+                            input(name="confirmPassword" type="password" class="form-control" id="inConfirmPassword")
                         button(type="submit" class="btn btn-primary") Зарегистрироваться
         
         script(src="js/formValidation.js")

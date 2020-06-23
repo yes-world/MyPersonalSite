@@ -29,6 +29,14 @@
     color: white;
 }
 
+.validMessage {
+    display: block;
+    width: 100%;
+    margin-top: .25rem;
+    font-size: 80%;
+    color: #dc3545;
+}
+
 @media (min-width: 768px) {
     .contactWindow {
         border-radius: 10px;

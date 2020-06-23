@@ -8,6 +8,7 @@ html
         link(rel="stylesheet" href="css/style.css")
         script(src="js/jquery-3.5.1.js")
         script(src="js/bootstrap.bundle.js")
+        script(src="js/jquery.validate.min.js")
     body
         if message
             div(class="modal fade" id="messageModal" tabindex="-1" role="dialog" aria-labelledby="messageModalLabel" aria-hidden="true")
@@ -59,15 +60,13 @@ html
                 div(class="col-md-5 mt-md-5 contactWindow shadow conWin1")
                     if login
                         div(class="mt-4 mb-3 mt-md-3") Форма обратной связи
-                        form(action="/contacts" method="post" class="needs-validation mb-4 mb-md-3" novalidate)
+                        form(action="/contacts" id="feedbackForm" method="post" class="mb-4 mb-md-3")
                             div(class="form-group")
                                 label(for="inSubject") Тема:
-                                input(name="subject" type="text" class="form-control" id="inSubject" required)
-                                div(class="invalid-feedback") Заполните поле
+                                input(name="subject" type="text" class="form-control" id="inSubject")
                             div(class="form-group")
                                 label(for="inMessage") Сообщение:
-                                textarea(name="message" class="form-control" id="inMessage" rows="5" required)
-                                div(class="invalid-feedback") Заполните поле
+                                textarea(name="message" class="form-control" id="inMessage" rows="5")
                             button(type="submit" class="btn btn-primary") Отправить
                     else
                         div(class="d-flex flex-column align-items-center")
