@@ -1,0 +1,47 @@
+﻿doctype html
+html
+    head
+        title #{name} - Marvel
+        meta(charset="UTF-8")
+        link(href="/css/marvel.css" rel="stylesheet" type='text/css')
+    body
+        div(id="root")
+        div(class="mid")
+            div(class="name")
+                h1 #{name} / #{originalName}
+            div(class="info")
+                img(class="poster" src="/img/" + url + ".jpg")
+                div(class="information")
+                    div(class="infoAll")
+                        div(class="infoTitle") Дата выхода в России
+                        div(class="infoValue") #{dateRussia}
+                    div(class="infoAll")
+                        div(class="infoTitle") Дата выхода (мир)
+                        div(class="infoValue") #{dateWorld}
+                    div(class="infoAll")
+                        div(class="infoTitle") Режисcёр#{end1}
+                        div(class="infoValue") #{director}
+                    div(class="infoAll")
+                        div(class="infoTitle") Сценарист#{end2}
+                        div(class="infoValue") #{screenwriter}
+                    div(class="infoAll")
+                        div(class="infoTitle") Композитор
+                        div(class="infoValue") #{composer}
+                    div(class="infoAll")
+                        div(class="infoTitle") Оператор
+                        div(class="infoValue") #{operator}
+                    div(class="infoAll")
+                        div(class="infoTitle") Длительность
+                        div(class="infoValue") #{duration}
+                    div(class="infoAll")
+                        div(class="infoTitle") Бюджет
+                        div(class="infoValue") #{budget}
+                    div(class="infoAll")
+                        div(class="infoTitle") Сборы в мире
+                        div(class="infoValue") #{feesInWorld}
+                    div(class="infoAll")
+                        div(class="infoTitle") Сборы в России
+                        div(class="infoValue") #{feesInRussia}
+        script(src="/js/react.js" crossorigin)
+        script(src="/js/react-dom.js" crossorigin)
+        script(src="/js/marvel.js")

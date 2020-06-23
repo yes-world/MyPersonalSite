@@ -112,7 +112,11 @@ router.get('/admin/statistics', function (req, res) {
 });
 
 router.get('/marvel', function (req, res) {
-    res.send('Страница временно недоступна');
+    res.render('marvelIndex');
+});
+
+router.get('/marvel/films', function (req, res) {
+    db.marvelFilmsDB(req, res);
 });
 
 module.exports = router;

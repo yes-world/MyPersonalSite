@@ -320,6 +320,36 @@ function profileDB(req, res, message) {
     });
 }
 
+function marvelFilmsDB(req, res) {
+    let url = req.query.film;
+    const db = dbclient.db('usersdb');
+    const collection = db.collection('films');
+    collection.find({ url: url }).toArray(function (err, results) {
+        if (err) return console.log(err);
+        var end1 = null;
+        var end2 = null;
+        if (results[0].director.includes(",")) end1 = "ы";
+        if (results[0].screenwriter.includes(",")) end2 = "ы";
+        res.render('marvelFilms', {
+            url: url,
+            name: results[0].name,
+            originalName: results[0].originalName,
+            dateWorld: results[0].dateWorld,
+            dateRussia: results[0].dateRussia,
+            director: results[0].director,
+            screenwriter: results[0].screenwriter,
+            composer: results[0].composer,
+            operator: results[0].operator,
+            duration: results[0].duration,
+            budget: results[0].budget,
+            feesInWorld: results[0].feesInWorld,
+            feesInRussia: results[0].feesInRussia,
+            end1: end1,
+            end2: end2,
+        });
+    });
+}
+
 exports.authentication = authentication;
 exports.registration = registration;
 exports.verification = verification;
@@ -333,3 +363,4 @@ exports.feedback = feedback;
 exports.logout = logout;
 exports.outputDB = outputDB;
 exports.profileDB = profileDB;
+exports.marvelFilmsDB = marvelFilmsDB;

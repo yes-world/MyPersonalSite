@@ -1,0 +1,156 @@
+* {
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body, html {
+    margin: 0px;
+    padding: 0px;
+}
+
+a.bt {
+    display: block;
+    height: 50px;
+    line-height: 50px;
+    width: auto;
+    text-align: center;
+    color: white;
+    text-decoration: none;
+    background: #f70008;
+    font-size: larger;
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 8px 8px 0 0;
+}
+
+    a.bt:hover {
+        background: #ff7171
+    }
+
+    a.bt:active {
+        background: #8e0005
+    }
+
+a.point {
+    display: table;
+    vertical-align: middle;
+    height: 50px;
+    line-height: 50px;
+    width: 100%;
+    color: white;
+    text-decoration: none;
+    background: #f70008;
+    padding-left: 1em;
+    padding-right: 1em;
+    font-size: larger;
+    border-style: solid;
+    border-width: 1px;
+    border-color: white;
+}
+
+    a.point:hover {
+        background: #ff7171
+    }
+
+    a.point:active {
+        background: #8e0005
+    }
+
+.top1 {
+    width: 100%;
+    height: 100px;
+    background: black;
+}
+
+.top2 {
+    width: 85%;
+    height: 100px;
+    margin: 0 auto;
+    position: relative;
+}
+
+.logo {
+    display: inline-block;
+    height: 100px;
+    border-style: solid;
+    border-color: white;
+    border-width: 1px;
+}
+
+.menu {
+    display: inline-block;
+    height: 50px;
+    width: auto;
+    position: absolute;
+    bottom: 0;
+}
+
+.menuItem {
+    display: inline-block;
+    min-height: 50px;
+    height: auto;
+    width: 160px;
+    margin-left: 50px;
+    vertical-align: top;
+}
+
+.list {
+    display: inline-block;
+    width: auto;
+    white-space: nowrap;
+}
+
+.mid {
+    width: 100%;
+    height: auto;
+    background: black;
+}
+
+.name {
+    width: 100%;
+    height: auto;
+    background: white;
+    color: black;
+    text-align: center;
+    padding-bottom: 1px;
+    margin-bottom: 50px;
+}
+
+.info {
+    width: max-content;
+    height: auto;
+    margin: 0 auto;
+}
+
+.poster {
+    display: inline-block;
+    height: 500px;
+    margin-right: 100px;
+    border-style: solid;
+    border-color: white;
+    border-width: 2px;
+}
+
+.information {
+    display: inline-block;
+    vertical-align: top;
+    color: white;
+    font-size: larger;
+}
+
+.infoTitle {
+    display: inline-block;
+    vertical-align: top;
+    font-weight: bold;
+    width: 250px;
+}
+
+.infoValue {
+    display: inline-block;
+    vertical-align: top;
+    max-width: 300px;
+}
+
+.infoAll {
+    margin-bottom: 30px;
+}
