@@ -56,6 +56,25 @@ html
                                 td= user.surname
                                 td= user.email
                             - i++;
+                else if regUsers
+                    thead
+                        tr
+                            th(scope="col") #
+                            th(scope="col") Имя
+                            th(scope="col") Фамилия
+                            th(scope="col") Email
+                            th(scope="col")
+                    tbody
+                        - var i = 1;
+                        each user in results
+                            tr
+                                th(scope="row")= i
+                                td= user.name
+                                td= user.surname
+                                td= user.email
+                                td
+                                    a(href="/admin/regUsers/removeRegUser?email=" + user.email) Удалить
+                            - i++;
                 else if messages
                     thead
                         tr
@@ -84,6 +103,8 @@ html
                             th(scope="col") Пользователь
                             th(scope="col") Email
                             th(scope="col") Операция
+                            th(scope="col")
+                                a(href="/admin/statistics/removeStat?email=all") Удалить все
                     tbody
                         - var i = 1;
                         each item in results
@@ -93,4 +114,6 @@ html
                                 td= item.user
                                 td= item.email
                                 td= item.operation
+                                td
+                                    a(href="/admin/statistics/removeStat?email=" + item.email + "&date=" + item.date) Удалить
                             - i++;

@@ -8,14 +8,9 @@ html
         link(rel="stylesheet" href="css/style.css")
         script(src="js/jquery-3.5.1.js")
         script(src="js/bootstrap.bundle.js")
+        script(src="js/jquery.validate.min.js")
+        script(src="js/jquery.mask.min.js")
     body
-        div(role="alert" aria-live="assertive" aria-atomic="true" class="toast mr-2" data-autohide="false" style="position: fixed; bottom: 0; right: 0;")
-            div(class="toast-header")
-                strong(class="mr-auto") Cookie-файлы
-                button(type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close")
-                    span(aria-hidden="true") &times;
-            div(class="toast-body") Этот сайт использует cookie-файлы. Продолжая пользоваться сайтом, вы соглащаетесь с использованием cookie-файлов.
-
         nav(class="navbar navbar-expand-md navbar-dark sticky-top" style="background-color: #910083;")
             div(class="container")
                 a(class="navbar-brand" href="/") yes.world
@@ -57,13 +52,34 @@ html
         div(class="container-fluid conWin2 py-3")
             div(class="container")
                 div(class="row")
-                    div(class="col-12 mh2") С чего всё начиналось.
-                div(class="row mt-3")
-                    div(class="col-md-6")
-                        a(href="/marvel")
-                            img(src="img/marvelSite.png" class="img-fluid img-thumbnail")
-                    div(class="col-md-6 mh3")
-                        p(class="mt-3") Первый мой сайт был посвящен фильмам Marvel =D
-                        p После первого курса у меня была учебная практика, на которой я и начал изучение веб-разработки. Результатом этой практики стал <strong><a href="/marvel" style="color: white !important;">этот сайт</a></strong>.
-        
+                    div(class="col-md-4 mh3")
+                        p Есть предложение или вопросы?
+                        p Укажите ваш номер, мы перезвоним вам.
+                    div(class="col-md-4")
+                        form(action="#" method="post" id="phoneForm")
+                            div(class="form-group")
+                                input(name="phone" type="text" class="form-control" id="inPhone")
+                            button(type="submit" class="btn btn-primary") Заказать звонок
+
+        div(class="container conWin1 py-5")
+            div(class="row")
+                div(class="col-12 mh2") С чего всё начиналось.
+            div(class="row mt-3")
+                div(class="col-md-6")
+                    a(href="/marvel")
+                        img(src="img/marvelSite.png" class="img-fluid img-thumbnail")
+                div(class="col-md-6 mh3")
+                    p(class="mt-3") Первый мой сайт был посвящен фильмам Marvel =D
+                    p После первого курса у меня была учебная практика, на которой я и начал изучение веб-разработки. Результатом этой практики стал <strong><a href="/marvel" style="color: white !important;">этот сайт</a></strong>.
+
+        div(role="alert" aria-live="assertive" aria-atomic="true" class="toast mr-2" data-autohide="false" style="position: fixed; bottom: 0; right: 0;")
+            div(class="toast-header")
+                strong(class="mr-auto") Cookie-файлы
+                button(type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close")
+                    span(aria-hidden="true") &times;
+            div(class="toast-body") Этот сайт использует cookie-файлы. Продолжая пользоваться сайтом, вы соглащаетесь с использованием cookie-файлов.
+
         script(src="js/cookieShow.js")  
+        script $(function () { $("#inPhone").mask("+7(000)000-00-00", { placeholder: "+7(___)___-__-__", clearIfNotMatch: true }); });
+        script $.validator.setDefaults({ submitHandler: function () { alert('Функция в разработке. Вы можете связаться со мной способами, предствленными на вкладке "Контакты". Ваш телефон: ' + $("#inPhone").val()); } });
+        script(src="js/formValidation.js")

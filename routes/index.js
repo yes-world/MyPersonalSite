@@ -101,6 +101,11 @@ router.get('/admin/regUsers', function (req, res) {
     else db.outputDB(req, res, 'regUsers');
 });
 
+router.get('/admin/regUsers/removeRegUser', function (req, res) {
+    if (!req.session.admin) res.redirect('/');
+    else db.removeRegUser(req, res);
+});
+
 router.get('/admin/messages', function (req, res) {
     if (!req.session.admin) res.redirect('/');
     else db.outputDB(req, res, 'messages');
@@ -109,6 +114,11 @@ router.get('/admin/messages', function (req, res) {
 router.get('/admin/statistics', function (req, res) {
     if (!req.session.admin) res.redirect('/');
     else db.outputDB(req, res, 'statistics');
+});
+
+router.get('/admin/statistics/removeStat', function (req, res) {
+    if (!req.session.admin) res.redirect('/');
+    else db.removeStat(req, res);
 });
 
 router.get('/marvel', function (req, res) {

@@ -304,11 +304,40 @@ function outputDB(req, res, namedb) {
     collection.find().toArray(function (err, results) {
         if (err) return console.log(err);
         let data;
-        if ((namedb === "users") || (namedb === "regUsers")) data = { username: req.session.username, results: results, users: true };
+        if (namedb === "users") data = { username: req.session.username, results: results, users: true };
+        if (namedb === "regUsers") data = { username: req.session.username, results: results, regUsers: true };
         if (namedb === "messages") data = { username: req.session.username, results: results, messages: true };
         if (namedb === "statistics") data = { username: req.session.username, results: results, statistics: true };
         res.render('admin-table', data);
     });
+}
+
+function removeRegUser(req, res) {
+    let email = req.query.email;
+    const db = dbclient.db('usersdb');
+    const collection = db.collection('regUsers');
+    collection.deleteOne({ email: email }, function (err, result) {
+        if (err) return console.log(err);
+        res.redirect('/admin/regUsers');
+    });
+}
+
+function removeStat(req, res) {
+    let email = req.query.email;
+    let date = req.query.date;
+    const db = dbclient.db('usersdb');
+    const collection = db.collection('statistics');
+    if (email === 'all') {
+        collection.deleteMany({}, function (err, result) {
+            if (err) return console.log(err);
+            res.redirect('/admin/statistics');
+        });
+    } else {
+        collection.deleteOne({ email: email, date: date }, function (err, result) {
+            if (err) return console.log(err);
+            res.redirect('/admin/statistics');
+        });
+    }
 }
 
 function profileDB(req, res, message) {
@@ -326,8 +355,8 @@ function marvelFilmsDB(req, res) {
     const collection = db.collection('films');
     collection.find({ url: url }).toArray(function (err, results) {
         if (err) return console.log(err);
-        var end1 = null;
-        var end2 = null;
+        let end1 = null;
+        let end2 = null;
         if (results[0].director.includes(",")) end1 = "ы";
         if (results[0].screenwriter.includes(",")) end2 = "ы";
         res.render('marvelFilms', {
@@ -364,3 +393,5 @@ exports.logout = logout;
 exports.outputDB = outputDB;
 exports.profileDB = profileDB;
 exports.marvelFilmsDB = marvelFilmsDB;
+exports.removeRegUser = removeRegUser;
+exports.removeStat = removeStat;

@@ -244,4 +244,28 @@
             $(element).addClass("is-valid").removeClass("is-invalid");
         }
     });
+
+    $("#phoneForm").validate({
+        rules: {
+            phone: {
+                required: true,
+            },
+        },
+        messages: {
+            phone: {
+                required: 'Заполните поле',
+            },
+        },
+        errorElement: 'div',
+        errorPlacement: function (error, element) {
+            error.addClass('validMessage');
+            error.insertAfter(element);
+        },
+        highlight: function (element, errorClass, validClass) {
+            $(element).addClass("is-invalid").removeClass("is-valid");
+        },
+        unhighlight: function (element, errorClass, validClass) {
+            $(element).addClass("is-valid").removeClass("is-invalid");
+        }
+    });
 });
