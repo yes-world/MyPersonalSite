@@ -351,7 +351,7 @@ function profileDB(req, res, message) {
 
 function marvelFilmsDB(req, res) {
     let url = req.query.film;
-    const db = dbclient.db('usersdb');
+    const db = dbclient.db('contentdb');
     const collection = db.collection('films');
     collection.find({ url: url }).toArray(function (err, results) {
         if (err) return console.log(err);
