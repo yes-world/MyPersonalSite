@@ -391,7 +391,7 @@ function addBooks(req, res) {
     fs.readdir('./fb2Books', function (err, result) {
         if (err) return console.log(err);
         result.forEach(function (item, index, array) {
-            let cashName = sha256(item + index);
+            let cashName = sha256(item);
             fb2.parse('./fb2Books/' + item, function (err, bookMeta) {
                 if (err) return console.log(err);
                 const db = dbclient.db('contentdb');
@@ -443,10 +443,28 @@ function getBookInform(req, res) {
         if (results.length === 0) {
             res.sendStatus(404);
         } else {
-            if (req.session.login) res.render('book', { username: req.session.username, login: true, bookMeta: results[0] });
+            if (req.session.login) res.render('book', { username: req.session.username, login: true, bookMeta: results[0], admin: req.session.admin });
             else res.render('book', { login: false, bookMeta: results[0] });
         }
     });
+}
+
+function changeBookInform(req, res) {
+    let cashName = req.body.cashName.trim();
+    let author = req.body.author.trim();
+    let bookTitle = req.body.bookTitle.trim();
+    let city = req.body.city.trim();
+    let year = req.body.year.trim();
+    let date = req.body.date.trim();
+    let coverpage = req.body.coverpage.trim();
+    let annotation = req.body.annotation;
+    const db = dbclient.db('contentdb');
+    const collection = db.collection('books');
+    collection.updateOne({ cashName: cashName }, { $set: { author: author, bookTitle: bookTitle, city: city, year: year, date: date, coverpage: coverpage, annotation: annotation } }, function (err, result) {
+        if (err) return console.log(err);
+        res.redirect('/books/book/' + cashName);
+    });
+
 }
 
 exports.authentication = authentication;
@@ -469,3 +487,4 @@ exports.addBooks = addBooks;
 exports.getBooks = getBooks;
 exports.readBook = readBook;
 exports.getBookInform = getBookInform;
+exports.changeBookInform = changeBookInform;

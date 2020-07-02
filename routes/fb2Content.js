@@ -1,7 +1,6 @@
 ﻿const fs = require('fs');
 
 function getContent(path, cashName, callback) {
-    let content;
     fs.readFile(path, 'utf8', function (err, data) {
         if (err) return callback(err);
         while (true) {
@@ -44,7 +43,7 @@ function getContent(path, cashName, callback) {
             data = data.slice(0, i) + data.slice(endBinary);
         }
 
-        content = '<div id="book"' + data.slice(data.indexOf('<body') + 5, data.indexOf('</body') + 2) + 'div>';
+        let content = '<div id="book"' + data.slice(data.indexOf('<body') + 5, data.indexOf('</body') + 2) + 'div>';
         while (true) {
             let i = content.indexOf('<title>');
             if (i === -1) break;
@@ -88,7 +87,7 @@ function getContent(path, cashName, callback) {
         while (true) {
             let i = content.indexOf('<image');
             if (i === -1) break;
-            let leftHref = content.indexOf('l:href="#', i) + 9;
+            let leftHref = content.indexOf('href="#', i) + 7;
             let rightHref = content.indexOf('"', leftHref);
             let href = content.slice(leftHref, rightHref);
             let endImage = content.indexOf('>', rightHref);

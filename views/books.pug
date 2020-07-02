@@ -23,7 +23,7 @@ html
                 div(class="collapse navbar-collapse justify-content-md-end" id="hatMenu")
                     ul(class="navbar-nav")
                         li(class="nav-item pr-md-3")
-                            a(class="nav-link active" href="/") Главная
+                            a(class="nav-link" href="/") Главная
                         li(class="nav-item pr-md-3")
                             a(class="nav-link" href="https://github.com/yes-world" target="_blank") GitHub
                         li(class="nav-item dropdown pr-md-3")
@@ -56,6 +56,6 @@ html
                             p Обложка отсутствует
                         p(class="mh2") #{book.bookTitle}
                         p(class="mh3") #{book.author}
-                        a(class="btn btn-info" role="button" href="/books/book/" + book.cashName) Посмотреть
+                        a(class="btn btn-info" role="button" href="/books/book/" + book.cashName) Открыть
 
         script $(function () { $('.lazy').Lazy(); });

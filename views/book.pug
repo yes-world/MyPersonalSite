@@ -8,11 +8,54 @@ html
         link(rel="stylesheet" href="/css/style.css")
         script(src="/js/jquery-3.5.1.js")
         script(src="/js/bootstrap.bundle.js")
+        if admin
+            script(src="/js/jquery.validate.min.js")
         script (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)}; m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)}) (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym"); ym(65130928, "init", { clickmap:true, trackLinks:true, accurateTrackBounce:true, webvisor:true });
         noscript
             div
                 img(src="https://mc.yandex.ru/watch/65130928" style="position:absolute; left:-9999px;" alt="")
     body
+        if admin
+            div(class="modal fade" id="changeBookMeta" tabindex="-1" role="dialog" aria-labelledby="changeBookMetaLabel" aria-hidden="true")
+                div(class="modal-dialog" role="document")
+                    div(class="modal-content")
+                        div(class="modal-header")
+                            h5(class="modal-title" id="changeBookMetaLabel") Редактирование мета-данных
+                            button(type="button" class="close" data-dismiss="modal" aria-label="Close")
+                                span(aria-hidden="true") &times;
+                        div(class="modal-body")
+                            div(class="container-fluid")
+                                div(class="row")
+                                    div(class="col-12")
+                                        form(action="/changeBookMeta" id="changeBookMetaForm" method="post")
+                                            div(class="form-group")
+                                                label(for="inCashName") Cash name:
+                                                input(name="cashName" type="text" class="form-control" id="inCashName" value=bookMeta.cashName readonly)
+                                            div(class="form-group")
+                                                label(for="inAuthor") Автор:
+                                                input(name="author" type="text" class="form-control" id="inAuthor" value=bookMeta.author)
+                                            div(class="form-group")
+                                                label(for="inBookTitle") Название:
+                                                input(name="bookTitle" type="text" class="form-control" id="inBookTitle" value=bookMeta.bookTitle)
+                                            div(class="form-group")
+                                                label(for="inCity") Город:
+                                                input(name="city" type="text" class="form-control" id="inCity" value=bookMeta.city)
+                                            div(class="form-group")
+                                                label(for="inYear") Год:
+                                                input(name="year" type="text" class="form-control" id="inYear" value=bookMeta.year)
+                                            div(class="form-group")
+                                                label(for="inDate") Дата:
+                                                input(name="date" type="text" class="form-control" id="inDate" value=bookMeta.date)
+                                            div(class="form-group")
+                                                label(for="inCoverpage") Обложка:
+                                                input(name="coverpage" type="text" class="form-control" id="inСoverpage" value=bookMeta.coverpage)
+                                            div(class="form-group")
+                                                label(for="inAnnotation") Аннотация:
+                                                textarea(name="annotation" class="form-control" id="inAnnotation" rows="5")= bookMeta.annotation
+                                            div
+                                                button(type="submit" class="btn btn-primary") Сохранить
+                                                button(type="button" class="btn btn-secondary ml-2" data-dismiss="modal") Отмена
+
         nav(class="navbar navbar-expand-md navbar-dark sticky-top" style="background-color: #910083;")
             div(class="container")
                 a(class="navbar-brand" href="/") yes.world
@@ -22,7 +65,7 @@ html
                 div(class="collapse navbar-collapse justify-content-md-end" id="hatMenu")
                     ul(class="navbar-nav")
                         li(class="nav-item pr-md-3")
-                            a(class="nav-link active" href="/") Главная
+                            a(class="nav-link" href="/") Главная
                         li(class="nav-item pr-md-3")
                             a(class="nav-link" href="https://github.com/yes-world" target="_blank") GitHub
                         li(class="nav-item dropdown pr-md-3")
@@ -46,7 +89,15 @@ html
                                 a(class="btn btn-outline-light" href="/login?page=%2Fbooks%2Fbook%2F" + bookMeta.cashName) Гость
 
         div(class="container")
-            div(class="row pt-4")
+            div(class="row py-4")
+                if admin
+                    div(class="col-12 d-flex")
+                        a(class="btn btn-info" href="/books") Назад
+                        button(type="button" class="btn btn-secondary ml-3" data-toggle="modal" data-target="#changeBookMeta" id="butChangeBookMeta") Редактировать
+                else
+                    div(class="col-12")
+                        a(class="btn btn-info" href="/books") Назад
+            div(class="row")
                 div(class="col-12")
                     p(class="mh2") #{bookMeta.bookTitle}
                     p(class="mh3") #{bookMeta.author}
@@ -80,3 +131,6 @@ html
                     if bookMeta.date
                         p
                             em #{bookMeta.date}
+        
+        if admin
+            script(src="/js/formValidation.js")

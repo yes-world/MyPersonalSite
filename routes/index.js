@@ -148,4 +148,8 @@ router.get('/books/book/:bookId', function (req, res) {
     db.getBookInform(req, res);
 });
 
+router.post('/changeBookMeta', function (req, res) {
+    db.changeBookInform(req, res);
+});
+
 module.exports = router;

@@ -268,4 +268,34 @@
             $(element).addClass("is-valid").removeClass("is-invalid");
         }
     });
+
+    $("#changeBookMetaForm").validate({
+        rules: {
+            author: {
+                required: true,
+            },
+            bookTitle: {
+                required: true,
+            },
+        },
+        messages: {
+            author: {
+                required: 'Заполните поле',
+            },
+            bookTitle: {
+                required: 'Заполните поле',
+            },
+        },
+        errorElement: 'div',
+        errorPlacement: function (error, element) {
+            error.addClass('validMessage');
+            error.insertAfter(element);
+        },
+        highlight: function (element, errorClass, validClass) {
+            $(element).addClass("is-invalid").removeClass("is-valid");
+        },
+        unhighlight: function (element, errorClass, validClass) {
+            $(element).addClass("is-valid").removeClass("is-invalid");
+        }
+    });
 });
