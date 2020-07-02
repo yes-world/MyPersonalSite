@@ -29,7 +29,9 @@ router.get('/login', function (req, res) {
     if (req.session.login) res.redirect('/profile');
     else {
         let message = req.session.message;
+        let page = req.query.page;
         req.session.message = "";
+        req.session.pageToLogin = page;
         req.session.save(() => res.render('login', { message: message }));
     }
 });
@@ -127,6 +129,23 @@ router.get('/marvel', function (req, res) {
 
 router.get('/marvel/films', function (req, res) {
     db.marvelFilmsDB(req, res);
+});
+
+router.get('/admin/addBooks', function (req, res) {
+    if (!req.session.admin) res.redirect('/');
+    else db.addBooks(req, res);
+});
+
+router.get('/books', function (req, res) {
+    db.getBooks(req, res);
+});
+
+router.get('/books/read/:bookId', function (req, res) {
+    db.readBook(req, res);
+});
+
+router.get('/books/book/:bookId', function (req, res) {
+    db.getBookInform(req, res);
 });
 
 module.exports = router;

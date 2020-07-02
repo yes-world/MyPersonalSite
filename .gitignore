@@ -1,7 +1,10 @@
 .vs/
 bin/
+fb2Books/
+htmlBooks/
 node_modules/
 obj/
+public/img/
 sessions/
 *.njsproj
 *.user

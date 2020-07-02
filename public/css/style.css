@@ -37,6 +37,34 @@
     color: #dc3545;
 }
 
+.sizeFont1 {
+    font-size: 0.5rem;
+}
+
+.sizeFont2 {
+    font-size: 0.75rem;
+}
+
+.sizeFont3 {
+    font-size: 1rem;
+}
+
+.sizeFont4 {
+    font-size: 1.25rem;
+}
+
+.sizeFont5 {
+    font-size: 1.5rem;
+}
+
+.darkThemeBody {
+    background-color: black;
+}
+
+.darkThemeFont {
+    color: white;
+}
+
 @media (min-width: 768px) {
     .contactWindow {
         border-radius: 10px;

@@ -2,6 +2,9 @@
 const MongoClient = require('mongodb').MongoClient;
 const crypto = require('crypto');
 const nodemailer = require('nodemailer');
+const fs = require('fs');
+const fb2 = require('./fb2Meta');
+const fb2Content = require('./fb2Content');
 
 async function sendEmail(to, subject, text, message) {
     let transporter = nodemailer.createTransport({
@@ -58,19 +61,21 @@ mongoClient.connect(function (err, client) {
 
 function authentication(req, res) {
     let email = req.body.email.trim().toLowerCase();
+    let page = req.session.pageToLogin;
     const db = dbclient.db('usersdb');
     const collection = db.collection('users');
     collection.find({ email: email }).toArray(function (err, results) {
         if (err) return console.log(err);
         if (!results.length) {
             req.session.message = "Неверный логин или пароль.";
-            req.session.save(() => res.redirect('/login'));
+            req.session.save(() => res.redirect('/login?page=' + page));
         }
         else {
             if (results[0].hashpass != sha256(req.body.password)) {
                 req.session.message = "Неверный логин или пароль.";
-                req.session.save(() => res.redirect('/login'));
+                req.session.save(() => res.redirect('/login?page=' + page));
             } else {
+                req.session.pageToLogin = '';
                 req.session.login = true;
                 req.session.username = results[0].name;
                 req.session.surname = results[0].surname;
@@ -80,7 +85,10 @@ function authentication(req, res) {
                 const statCollection = db.collection('statistics');
                 statCollection.insertOne(statData, function (err, result) {
                     if (err) return console.log(err);
-                    req.session.save(() => res.redirect('/profile'));
+                    req.session.save(() => {
+                        if (page) res.redirect(decodeURIComponent(page));
+                        else res.redirect('/profile');
+                    });
                 });
             }
         }
@@ -379,6 +387,68 @@ function marvelFilmsDB(req, res) {
     });
 }
 
+function addBooks(req, res) {
+    fs.readdir('./fb2Books', function (err, result) {
+        if (err) return console.log(err);
+        result.forEach(function (item, index, array) {
+            let cashName = sha256(item + index);
+            fb2.parse('./fb2Books/' + item, function (err, bookMeta) {
+                if (err) return console.log(err);
+                const db = dbclient.db('contentdb');
+                const collection = db.collection('books');
+                collection.find({ cashName: cashName }).toArray(function (err, results) {
+                    if (err) return console.log(err);
+                    if (results.length === 0) {
+                        let bookInform = { cashName: cashName, author: bookMeta.author, bookTitle: bookMeta.bookTitle, annotation: bookMeta.annotation, city: bookMeta.city, year: bookMeta.year, date: bookMeta.date, coverpage: bookMeta.coverpage };
+                        collection.insertOne(bookInform, function (err, result) {
+                            if (err) return console.log(err);
+                            fb2Content.getContent('./fb2Books/' + item, cashName, function (err, content) {
+                                if (err) return console.log(err);
+                                fs.writeFile('./htmlBooks/' + cashName + '.html', content, function (err) {
+                                    if (err) return console.log(err);
+                                });
+                            });
+                        });
+                    }
+                });
+            });
+        });
+        res.redirect('/admin');
+    });
+}
+
+function getBooks(req, res) {
+    const db = dbclient.db('contentdb');
+    const collection = db.collection('books');
+    collection.find({}, { cashName: true, author: true, bookTitle: true, coverpage: true }).toArray(function (err, results) {
+        if (err) return console.log(err);
+        if (req.session.login) res.render('books', { username: req.session.username, login: true, results: results });
+        else res.render('books', { login: false, results: results });
+    });
+}
+
+function readBook(req, res) {
+    fs.readFile('./htmlBooks/' + req.params['bookId'] + '.html', 'utf8', function (err, data) {
+        if (err) return res.render('reader', { content: '<h3>Книга не найдена</h3>' });
+        res.render('reader', { content: data });
+    });
+}
+
+function getBookInform(req, res) {
+    let cashName = req.params['bookId'];
+    const db = dbclient.db('contentdb');
+    const collection = db.collection('books');
+    collection.find({ cashName: cashName }).toArray(function (err, results) {
+        if (err) return console.log(err);
+        if (results.length === 0) {
+            res.sendStatus(404);
+        } else {
+            if (req.session.login) res.render('book', { username: req.session.username, login: true, bookMeta: results[0] });
+            else res.render('book', { login: false, bookMeta: results[0] });
+        }
+    });
+}
+
 exports.authentication = authentication;
 exports.registration = registration;
 exports.verification = verification;
@@ -395,3 +465,7 @@ exports.profileDB = profileDB;
 exports.marvelFilmsDB = marvelFilmsDB;
 exports.removeRegUser = removeRegUser;
 exports.removeStat = removeStat;
+exports.addBooks = addBooks;
+exports.getBooks = getBooks;
+exports.readBook = readBook;
+exports.getBookInform = getBookInform;
