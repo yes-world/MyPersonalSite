@@ -45,17 +45,31 @@ html
                         else
                             li(class="nav-item")
                                 a(class="btn btn-outline-light" href="/login?page=%2Fbooks") Гость
-        
-        div(class="container")
+
+        div(class="container py-3")
+            div(class="row")
+                div(class="col-12")
+                    div(class="mh3") Это приложение в разработке. Пока все книги просто кучей представлены на этой странице. Планируется создать более менее красивую главную страницу, разделение по жанрам, поиск.
+
+        div(class="container-fluid conWin2 py-3 px-0")
+            div(class="container")
+                div(class="row")
+                    div(class="col-12")
+                        div(class="mh3") Сейчас здесь очень мало литературы, но вы можете скинуть мне книги, которые вам нравятся или вы бы хотели почитать, в формате fb2, я добавлю их в коллекцию )) Вы сможете читать их в любом удобном месте с помощью моего сайта =D
+
+        div(class="container pt-3")
             div(class="row")
                 each book in results
                     div(class="col-md-3 py-3 my-2 shadow-sm")
-                        if book.coverpage
-                            img(class="lazy img-fluid" data-src="/img/" + book.cashName + "/" + book.coverpage)
-                        else
-                            p Обложка отсутствует
-                        p(class="mh2") #{book.bookTitle}
-                        p(class="mh3") #{book.author}
-                        a(class="btn btn-info" role="button" href="/books/book/" + book.cashName) Открыть
+                        div(class="row")
+                            div(class="col-4 col-md-12")
+                                if book.coverpage
+                                    img(class="lazy img-fluid" data-src="/img/" + book.cashName + "/" + book.coverpage)
+                                else
+                                    p Обложка отсутствует
+                            div(class="col-8 col-md-12")
+                                div(class="mh2") #{book.bookTitle}
+                                div(class="mh3 pb-2") #{book.author}
+                                a(class="btn btn-info" role="button" href="/books/book/" + book.cashName) Открыть
 
         script $(function () { $('.lazy').Lazy(); });
