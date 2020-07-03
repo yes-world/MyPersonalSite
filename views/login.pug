@@ -28,24 +28,24 @@ html
                             button(type="button" class="btn btn-secondary" data-dismiss="modal") Закрыть
         
         div(class="modal fade" id="passwordRecovery" tabindex="-1" role="dialog" aria-labelledby="passwordRecoveryLabel" aria-hidden="true")
-                div(class="modal-dialog" role="document")
-                    div(class="modal-content")
-                        div(class="modal-header")
-                            h5(class="modal-title" id="passwordRecoveryLabel") Восстановление пароля
-                            button(type="button" class="close" data-dismiss="modal" aria-label="Close")
-                                span(aria-hidden="true") &times;
-                        div(class="modal-body")
-                            div(class="container-fluid")
-                                div(class="row")
-                                    div(class="col-12")
-                                        div(class="mb-2") Укажите подтвержденный email, на который будет оправлено письмо с ссылкой на восстановление пароля.
-                                        form(action="/passwordRecovery" id="passRecForm" method="post")
-                                            div(class="form-group")
-                                                label(for="inRecEmail") Email:
-                                                input(name="email" type="email" class="form-control" id="inRecEmail")
-                                            div
-                                                button(type="submit" class="btn btn-primary") Отправить
-                                                button(type="button" class="btn btn-secondary ml-2" data-dismiss="modal") Отмена
+            div(class="modal-dialog" role="document")
+                div(class="modal-content")
+                    div(class="modal-header")
+                        h5(class="modal-title" id="passwordRecoveryLabel") Восстановление пароля
+                        button(type="button" class="close" data-dismiss="modal" aria-label="Close")
+                            span(aria-hidden="true") &times;
+                    div(class="modal-body")
+                        div(class="container-fluid")
+                            div(class="row")
+                                div(class="col-12")
+                                    div(class="mb-2") Укажите подтвержденный email, на который будет оправлено письмо с ссылкой на восстановление пароля.
+                                    form(action="/passwordRecovery" id="passRecForm" method="post")
+                                        div(class="form-group")
+                                            label(for="inRecEmail") Email:
+                                            input(name="email" type="email" class="form-control" id="inRecEmail")
+                                        div
+                                            button(type="submit" class="btn btn-primary") Отправить
+                                            button(type="button" class="btn btn-secondary ml-2" data-dismiss="modal") Отмена
 
         nav(class="navbar navbar-expand-md navbar-dark sticky-top" style="background-color: #910083;")
             div(class="container")

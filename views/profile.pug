@@ -28,64 +28,64 @@ html
                             button(type="button" class="btn btn-secondary" data-dismiss="modal") Закрыть
         
         div(class="modal fade" id="changeName" tabindex="-1" role="dialog" aria-labelledby="changeNameLabel" aria-hidden="true")
-                div(class="modal-dialog" role="document")
-                    div(class="modal-content")
-                        div(class="modal-header")
-                            h5(class="modal-title" id="changeNameLabel") Редактирование профиля
-                            button(type="button" class="close" data-dismiss="modal" aria-label="Close")
-                                span(aria-hidden="true") &times;
-                        div(class="modal-body")
-                            div(class="container-fluid")
-                                div(class="row")
-                                    div(class="col-12")
-                                        form(action="/changeName" id="changeNameForm" method="post")
-                                            div(class="form-group")
-                                                label(for="inName") Имя:
-                                                input(name="name" type="text" class="form-control" id="inName" value=username)
-                                            div(class="form-group")
-                                                label(for="inSurname") Фамилия:
-                                                input(name="surname" type="text" class="form-control" id="inSurname" value=surname)
-                                            div
-                                                button(type="submit" class="btn btn-primary") Изменить
-                                                button(type="button" class="btn btn-secondary ml-2" data-dismiss="modal") Отмена
+            div(class="modal-dialog" role="document")
+                div(class="modal-content")
+                    div(class="modal-header")
+                        h5(class="modal-title" id="changeNameLabel") Редактирование профиля
+                        button(type="button" class="close" data-dismiss="modal" aria-label="Close")
+                            span(aria-hidden="true") &times;
+                    div(class="modal-body")
+                        div(class="container-fluid")
+                            div(class="row")
+                                div(class="col-12")
+                                    form(action="/changeName" id="changeNameForm" method="post")
+                                        div(class="form-group")
+                                            label(for="inName") Имя:
+                                            input(name="name" type="text" class="form-control" id="inName" value=username)
+                                        div(class="form-group")
+                                            label(for="inSurname") Фамилия:
+                                            input(name="surname" type="text" class="form-control" id="inSurname" value=surname)
+                                        div
+                                            button(type="submit" class="btn btn-primary") Изменить
+                                            button(type="button" class="btn btn-secondary ml-2" data-dismiss="modal") Отмена
 
         div(class="modal fade" id="changePassword" tabindex="-1" role="dialog" aria-labelledby="changePasswordLabel" aria-hidden="true")
-                div(class="modal-dialog" role="document")
-                    div(class="modal-content")
-                        div(class="modal-header")
-                            h5(class="modal-title" id="changePasswordLabel") Изменить пароль
-                            button(type="button" class="close" data-dismiss="modal" aria-label="Close")
-                                span(aria-hidden="true") &times;
-                        div(class="modal-body")
-                            div(class="container-fluid")
-                                div(class="row")
-                                    div(class="col-12")
-                                        form(action="/changePassword" id="changePasswordForm" method="post")
-                                            div(class="form-group")
-                                                label(for="inPassword") Старый пароль:
-                                                input(name="oldpass" type="password" class="form-control" id="inPassword")
-                                            div(class="form-group")
-                                                label(for="inNewPassword") Новый пароль:
-                                                input(name="newpass" type="password" class="form-control" id="inNewPassword")
-                                            div(class="form-group")
-                                                label(for="inConfirmPassword") Повторите пароль:
-                                                input(name="confirmPassword" type="password" class="form-control" id="inConfirmPassword")
-                                            div
-                                                button(type="submit" class="btn btn-primary") Изменить
-                                                button(type="button" class="btn btn-secondary ml-2" data-dismiss="modal") Отмена
+            div(class="modal-dialog" role="document")
+                div(class="modal-content")
+                    div(class="modal-header")
+                        h5(class="modal-title" id="changePasswordLabel") Изменить пароль
+                        button(type="button" class="close" data-dismiss="modal" aria-label="Close")
+                            span(aria-hidden="true") &times;
+                    div(class="modal-body")
+                        div(class="container-fluid")
+                            div(class="row")
+                                div(class="col-12")
+                                    form(action="/changePassword" id="changePasswordForm" method="post")
+                                        div(class="form-group")
+                                            label(for="inPassword") Старый пароль:
+                                            input(name="oldpass" type="password" class="form-control" id="inPassword")
+                                        div(class="form-group")
+                                            label(for="inNewPassword") Новый пароль:
+                                            input(name="newpass" type="password" class="form-control" id="inNewPassword")
+                                        div(class="form-group")
+                                            label(for="inConfirmPassword") Повторите пароль:
+                                            input(name="confirmPassword" type="password" class="form-control" id="inConfirmPassword")
+                                        div
+                                            button(type="submit" class="btn btn-primary") Изменить
+                                            button(type="button" class="btn btn-secondary ml-2" data-dismiss="modal") Отмена
         
         div(class="modal fade" id="removeUser" tabindex="-1" role="dialog" aria-labelledby="removeUserLabel" aria-hidden="true")
-                div(class="modal-dialog" role="document")
-                    div(class="modal-content")
-                        div(class="modal-header")
-                            h5(class="modal-title" id="removeUserLabel") Удаление профиля
-                            button(type="button" class="close" data-dismiss="modal" aria-label="Close")
-                                span(aria-hidden="true") &times;
-                        div(class="modal-body")
-                            p Вы действительно хотите удалить профиль?
-                        div(class="modal-footer")
-                            a(class="btn btn-primary" href="/removeUser") Да
-                            button(type="button" class="btn btn-secondary" data-dismiss="modal") Нет
+            div(class="modal-dialog" role="document")
+                div(class="modal-content")
+                    div(class="modal-header")
+                        h5(class="modal-title" id="removeUserLabel") Удаление профиля
+                        button(type="button" class="close" data-dismiss="modal" aria-label="Close")
+                            span(aria-hidden="true") &times;
+                    div(class="modal-body")
+                        p Вы действительно хотите удалить профиль?
+                    div(class="modal-footer")
+                        a(class="btn btn-primary" href="/removeUser") Да
+                        button(type="button" class="btn btn-secondary" data-dismiss="modal") Нет
 
         nav(class="navbar navbar-expand-md navbar-dark sticky-top" style="background-color: #910083;")
             div(class="container")
