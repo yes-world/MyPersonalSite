@@ -65,6 +65,24 @@
     color: white;
 }
 
+.butControlLight {
+    font-size: xx-large;
+    color: #5c5c5c;
+}
+
+.butControlDark {
+    font-size: xx-large;
+    color: #a6a6a6;
+}
+
+.navControlLight {
+    background-color: rgba(255, 255, 255, 0.7);
+}
+
+.navControlDark {
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
 @media (min-width: 768px) {
     .contactWindow {
         border-radius: 10px;
