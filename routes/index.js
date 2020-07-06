@@ -113,6 +113,11 @@ router.get('/admin/messages', function (req, res) {
     else db.outputDB(req, res, 'messages');
 });
 
+router.get('/admin/messages/removeMessage', function (req, res) {
+    if (!req.session.admin) res.redirect('/');
+    else db.removeMessage(req, res);
+});
+
 router.get('/admin/statistics', function (req, res) {
     if (!req.session.admin) res.redirect('/');
     else db.outputDB(req, res, 'statistics');

@@ -348,6 +348,24 @@ function removeStat(req, res) {
     }
 }
 
+function removeMessage(req, res) {
+    let email = req.query.email;
+    let date = req.query.date;
+    const db = dbclient.db('usersdb');
+    const collection = db.collection('messages');
+    if (email === 'all') {
+        collection.deleteMany({}, function (err, result) {
+            if (err) return console.log(err);
+            res.redirect('/admin/messages');
+        });
+    } else {
+        collection.deleteOne({ email: email, date: date }, function (err, result) {
+            if (err) return console.log(err);
+            res.redirect('/admin/messages');
+        });
+    }
+}
+
 function profileDB(req, res, message) {
     const db = dbclient.db('usersdb');
     const collection = db.collection('messages');
@@ -483,6 +501,7 @@ exports.profileDB = profileDB;
 exports.marvelFilmsDB = marvelFilmsDB;
 exports.removeRegUser = removeRegUser;
 exports.removeStat = removeStat;
+exports.removeMessage = removeMessage;
 exports.addBooks = addBooks;
 exports.getBooks = getBooks;
 exports.readBook = readBook;

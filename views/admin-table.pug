@@ -84,6 +84,8 @@ html
                             th(scope="col") Email
                             th(scope="col") Тема
                             th(scope="col") Сообщение
+                            th(scope="col")
+                                a(href="/admin/messages/removeMessage?email=all") Удалить все
                     tbody
                         - var i = 1;
                         each message in results
@@ -94,6 +96,8 @@ html
                                 td= message.email
                                 td= message.subject
                                 td= message.message
+                                td
+                                    a(href="/admin/messages/removeMessage?email=" + message.email + "&date=" + message.date) Удалить
                             - i++;
                 else if statistics
                     thead
