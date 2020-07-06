@@ -141,7 +141,8 @@ router.get('/books', function (req, res) {
 });
 
 router.get('/books/read/:bookId', function (req, res) {
-    db.readBook(req, res);
+    if (!req.session.login) res.redirect('/books/book/' + req.params['bookId']);
+    else db.readBook(req, res);
 });
 
 router.get('/books/book/:bookId', function (req, res) {
